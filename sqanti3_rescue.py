@@ -17,7 +17,7 @@ import pandas as pd
 Rscript_path = distutils.spawn.find_executable('Rscript')
 gffread_path = distutils.spawn.find_executable('gffread')
 python_path = distutils.spawn.find_executable('python')
-utilities_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "utilities")
+utilitiesPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../lib/squanti3/utilities")
 
 ## Set path variables to call R scripts
 automatic_rescue_path = "rescue/automatic_rescue.R"

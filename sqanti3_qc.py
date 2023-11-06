@@ -23,7 +23,7 @@ from collections.abc import Iterable
 from csv import DictWriter, DictReader
 from multiprocessing import Process
 
-utilitiesPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "utilities")
+utilitiesPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../lib/squanti3/utilities")
 sys.path.insert(0, utilitiesPath)
 from rt_switching import rts
 from indels_annot import calc_indels_from_sam
@@ -71,7 +71,7 @@ except ImportError:
 # check cupcake version
 import cupcake
 v1, v2 = [int(x) for x in cupcake.__version__.split('.')]
-if v1 < 8 or v2 < 6:
+if v1 < 8 or v1 == 8 and v2 < 6:
     print("Cupcake version must be 8.6 or higher! Got {0} instead.".format(cupcake.__version__), file=sys.stderr)
     sys.exit(-1)
 
@@ -85,7 +85,7 @@ ULTRA_CMD = "uLTRA pipeline {g} {a} {i} {o_dir} --t {cpus} --prefix {prefix} --i
 GMSP_PROG = os.path.join(utilitiesPath, "gmst", "gmst.pl")
 GMST_CMD = "perl " + GMSP_PROG + " -faa --strand direct --fnn --output {o} {i}"
 
-GTF2GENEPRED_PROG = os.path.join(utilitiesPath,"gtfToGenePred")
+GTF2GENEPRED_PROG = "gtfToGenePred"
 GFFREAD_PROG = "gffread"
 
 if distutils.spawn.find_executable(GTF2GENEPRED_PROG) is None:
@@ -2400,6 +2400,9 @@ def main():
 
 
     args = parser.parse_args()
+    if not args.skipORF:
+        print("FORCING --skipORF as GMST isn't packageable in conda: https://github.com/ConesaLab/SQANTI3/issues/239")
+        args.skipORF = True
 
     if args.is_fusion:
         if args.orf_input is None:
