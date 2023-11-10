@@ -23,7 +23,7 @@ from collections.abc import Iterable
 from csv import DictWriter, DictReader
 from multiprocessing import Process
 
-utilitiesPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../lib/squanti3/utilities")
+utilitiesPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "utilities")
 sys.path.insert(0, utilitiesPath)
 from rt_switching import rts
 from indels_annot import calc_indels_from_sam
@@ -55,7 +55,8 @@ try:
     from STAR import STARJunctionReader
     from BED import LazyBEDPointReader
     import coordinate_mapper as cordmap
-except ImportError:
+except ImportError as exc:
+    print(exc)
     print("Unable to import err_correct_w_genome or sam_to_gff3.py! Please make sure cDNA_Cupcake/sequence/ is in $PYTHONPATH.", file=sys.stderr)
     sys.exit(-1)
 

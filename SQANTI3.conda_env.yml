@@ -2,9 +2,7 @@ name: SQANTI3.env
 channels:
   - conda-forge
   - bioconda
-  - anaconda
   - r
-  - defaults
 dependencies:
   - bcbio-gff
   - bedtools
@@ -60,5 +58,7 @@ dependencies:
   - seqtk
   - star
   - slamem
+  - cdna_cupcake
+  - ucsc-gtftogenepred
   - pip:
     - ultra-bioinformatics
